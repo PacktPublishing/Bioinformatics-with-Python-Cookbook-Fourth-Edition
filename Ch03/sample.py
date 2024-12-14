@@ -4,7 +4,7 @@ import os, sys  # Unused imports and multiple imports on one line
 
 def example_function(a, b):   # Missing docstring
     if a > b:
-      print("a is greater than b")  # Improper indentation and inline statement
+      print("a is greater than b")  # Improper indentation
     else:
         print("b is greater or equal to a")  # Extra indentation
 
