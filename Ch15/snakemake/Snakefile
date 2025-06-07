@@ -1,0 +1,104 @@
+
+import os
+from pathlib import Path
+
+# Configuration
+SAMPLES = ["sample1", "sample2", "sample3"]
+DATA_DIR = "data"
+RESULTS_DIR = "results"
+
+# Target rule - what we want to produce
+rule all:
+    input:
+        # FastQC reports (real)
+        expand(f"{RESULTS_DIR}/fastqc/{{sample}}_R1_fastqc.html", sample=SAMPLES),
+        expand(f"{RESULTS_DIR}/fastqc/{{sample}}_R2_fastqc.html", sample=SAMPLES),
+        # Mock outputs
+        expand(f"{RESULTS_DIR}/alignment/{{sample}}.bam", sample=SAMPLES),
+        expand(f"{RESULTS_DIR}/variants/{{sample}}.vcf", sample=SAMPLES),
+        f"{RESULTS_DIR}/multiqc_report.html",
+        f"{RESULTS_DIR}/pipeline_summary.json"
+
+# Real FastQC rule
+rule fastqc:
+    input:
+        fastq=f"{DATA_DIR}/raw/{{sample}}_{{read}}.fastq.gz"
+    output:
+        html=f"{RESULTS_DIR}/fastqc/{{sample}}_{{read}}_fastqc.html",
+        zip=f"{RESULTS_DIR}/fastqc/{{sample}}_{{read}}_fastqc.zip"
+    params:
+        outdir=f"{RESULTS_DIR}/fastqc"
+    log:
+        "logs/fastqc_{sample}_{read}.log"
+    shell:
+        """
+        # Check if fastqc is available, if not use mock
+        if command -v fastqc >/dev/null 2>&1; then
+            fastqc {input.fastq} -o {params.outdir} --extract 2> {log}
+        else
+            echo "FastQC not found, creating mock output..." > {log}
+            python scripts/mock_fastqc.py {input.fastq} {params.outdir} {wildcards.sample} {wildcards.read}
+        fi
+        """
+
+# Mock alignment rule
+rule align_reads:
+    input:
+        r1=f"{DATA_DIR}/raw/{{sample}}_R1.fastq.gz",
+        r2=f"{DATA_DIR}/raw/{{sample}}_R2.fastq.gz"
+    output:
+        bam=f"{RESULTS_DIR}/alignment/{{sample}}.bam",
+        bai=f"{RESULTS_DIR}/alignment/{{sample}}.bam.bai"
+    log:
+        "logs/align_{sample}.log"
+    shell:
+        """
+        echo "Mock alignment for {wildcards.sample}" > {log}
+        python scripts/mock_alignment.py {input.r1} {input.r2} {output.bam} {output.bai}
+        """
+
+# Mock variant calling rule
+rule call_variants:
+    input:
+        bam=f"{RESULTS_DIR}/alignment/{{sample}}.bam",
+        bai=f"{RESULTS_DIR}/alignment/{{sample}}.bam.bai"
+    output:
+        vcf=f"{RESULTS_DIR}/variants/{{sample}}.vcf"
+    log:
+        "logs/variants_{sample}.log"
+    shell:
+        """
+        echo "Mock variant calling for {wildcards.sample}" > {log}
+        python scripts/mock_variants.py {input.bam} {output.vcf}
+        """
+
+# Mock MultiQC rule
+rule multiqc:
+    input:
+        fastqc_reports=expand(f"{RESULTS_DIR}/fastqc/{{sample}}_{{read}}_fastqc.zip", 
+                             sample=SAMPLES, read=["R1", "R2"]),
+        bams=expand(f"{RESULTS_DIR}/alignment/{{sample}}.bam", sample=SAMPLES)
+    output:
+        report=f"{RESULTS_DIR}/multiqc_report.html"
+    log:
+        "logs/multiqc.log"
+    shell:
+        """
+        echo "Mock MultiQC report generation" > {log}
+        python scripts/mock_multiqc.py {output.report}
+        """
+
+# Pipeline summary rule
+rule pipeline_summary:
+    input:
+        vcfs=expand(f"{RESULTS_DIR}/variants/{{sample}}.vcf", sample=SAMPLES),
+        multiqc=f"{RESULTS_DIR}/multiqc_report.html"
+    output:
+        summary=f"{RESULTS_DIR}/pipeline_summary.json"
+    log:
+        "logs/summary.log"
+    shell:
+        """
+        echo "Generating pipeline summary" > {log}
+        python scripts/generate_summary.py {output.summary}
+        """
