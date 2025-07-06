@@ -1,0 +1,17 @@
+name: bioinformatics_base
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.12
+  - biopython=1.84
+  - jupyterlab=4.4.0 
+  - matplotlib=3.9.2
+  - numpy=2.1.0 
+  - pandas=2.2.3
+  - scipy=1.14.
+  - cyvcf2=0.31.1
+  - notebook
+  - bioblend=1.5.0
+
