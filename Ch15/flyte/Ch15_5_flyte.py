@@ -6,16 +6,18 @@ A complete genomics pipeline for quality control, alignment, and variant calling
 Designed to be run from the command line using pyflyte.
 
 Usage:
+    # First, generate sample files 
+    python Ch15_5_flyte.py
     # Run locally
-    pyflyte run workflow.py genomics_pipeline --fastq_file sample.fastq --reference_genome reference.fa --sample_name "my_sample"
+    pyflyte run Ch15_5_flyte.py genomics_pipeline --fastq_file sample.fastq --reference_genome reference.fa --sample_name "my_sample"
     
     # Run with Flyte sandbox
     flytectl demo start
-    pyflyte --config ~/.flyte/config-sandbox.yaml register workflow.py
-    pyflyte --config ~/.flyte/config-sandbox.yaml run --remote workflow.py genomics_pipeline --fastq_file sample.fastq --reference_genome reference.fa
+    pyflyte --config ~/.flyte/config-sandbox.yaml register Ch15_5_flyte.py
+    pyflyte --config ~/.flyte/config-sandbox.yaml run --remote Ch15_5_flyte.py genomics_pipeline --fastq_file sample.fastq --reference_genome reference.fa
     
 Requirements:
-    pip install "flytekit[all]" pandas
+    pip install "flytekit[all]" 
 
 Author: Flyte Genomics Pipeline
 Version: 1.0
@@ -36,9 +38,6 @@ warnings.filterwarnings("ignore", message=".*parameter -i is used more than once
 from flytekit import task, workflow, Resources
 from flytekit.types.file import FlyteFile
 from flytekit.types.directory import FlyteDirectory
-
-# No pandas import needed - we'll use only standard library
-
 
 @dataclass
 class QCMetrics:
@@ -81,8 +80,6 @@ def quality_control(fastq_file: FlyteFile) -> Tuple[FlyteDirectory, QCMetrics]:
         Tuple of QC output directory and metrics
     """
     print("🔬 Starting Quality Control Analysis...")
-    
-    # No pandas needed - using standard library only
     
     # Create output directory
     output_dir = tempfile.mkdtemp(prefix="qc_output_")
@@ -923,7 +920,6 @@ def main():
     print("   • Local execution uses your Python environment")
     print("   • Cluster execution uses only standard Python libraries")
     print("   • Matplotlib auto-installed if needed for visualizations")
-    print("   • No pandas dependency - pure Python implementation")
     print("   • Compatible with any Flyte sandbox or cluster")
     
     print("\n🐛 Troubleshooting:")
