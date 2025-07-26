@@ -1,4 +1,4 @@
-name: bioinformatics_base
+name: ch09-proteins 
 channels:
   - conda-forge
   - bioconda
@@ -16,4 +16,5 @@ dependencies:
   - notebook
   - nglview=3.1.4
   - pyteomics=4.7.5
+  - py3Dmol=2.5.1
 
