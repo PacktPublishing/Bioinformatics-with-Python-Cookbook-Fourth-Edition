@@ -1,4 +1,4 @@
-name: bioinformatics_base
+name: ch15-workflows
 channels:
   - conda-forge
   - bioconda
