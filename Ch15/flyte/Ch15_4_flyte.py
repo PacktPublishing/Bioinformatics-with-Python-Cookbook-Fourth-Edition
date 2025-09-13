@@ -23,6 +23,7 @@ Author: Flyte Genomics Pipeline
 Version: 1.0
 """
 
+# Import Libraries
 import os
 import tempfile
 import random
@@ -39,6 +40,7 @@ from flytekit import task, workflow, Resources
 from flytekit.types.file import FlyteFile
 from flytekit.types.directory import FlyteDirectory
 
+# Dataclass Definitions
 @dataclass
 class QCMetrics:
     """Data class to hold quality control metrics"""
@@ -64,7 +66,7 @@ class AlignmentMetrics:
         return (f"AlignmentMetrics(total={self.total_reads}, mapped={self.mapped_reads}, "
                 f"rate={self.mapping_rate:.2f}%, coverage={self.mean_coverage:.2f}x)")
 
-
+# Task Definitions
 @task(
     requests=Resources(cpu="1", mem="1Gi"),
     cache_version="1.0"
@@ -737,7 +739,7 @@ This report presents the results of quality control, read alignment, and variant
     
     return FlyteFile(path=report_file)
 
-
+# Workflow Definition
 @workflow
 def genomics_pipeline(
     fastq_file: FlyteFile,
