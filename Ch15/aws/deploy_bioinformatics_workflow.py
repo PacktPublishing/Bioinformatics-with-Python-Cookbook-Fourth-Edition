@@ -4,6 +4,7 @@ Complete deployable bioinformatics workflow using AWS Step Functions
 This creates a simple workflow with one mocked FASTQ quality analysis task
 """
 
+# Import Libraries
 import boto3
 import json
 import time
