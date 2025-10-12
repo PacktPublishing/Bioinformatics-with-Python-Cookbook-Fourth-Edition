@@ -1,0 +1,14 @@
+name: ch08-databases
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - biopython
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
+  - pysradb
