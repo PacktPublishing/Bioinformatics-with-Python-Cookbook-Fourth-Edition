@@ -1,0 +1,17 @@
+name: ch07-genomes
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - biopython
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
+  - pyfastx
+  - networkx
+  - raven-assembler
+  - quast
