@@ -1,0 +1,23 @@
+name: ch12-metabolic-modeling
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.12
+  - biopython
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
+  - notebook
+  - seaborn
+  - ViennaRNA
+  - requests
+  - pip
+  - pip:
+    - cobra
+    - python-libsbml-experimental
+    - sgkit[plink]
+    - cbgen
