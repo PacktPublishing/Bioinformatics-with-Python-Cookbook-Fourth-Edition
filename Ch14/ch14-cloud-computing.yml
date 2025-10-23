@@ -1,4 +1,4 @@
-name: bioinformatics_base
+name: ch14-cloud-computing
 channels:
   - conda-forge
   - bioconda
@@ -10,8 +10,7 @@ dependencies:
   - matplotlib=3.9.2
   - numpy=2.1.0 
   - pandas=2.2.3
-  - scipy=1.14.
+  - scipy=1.14.1
   - cyvcf2=0.31.1
   - notebook
   - boto3=1.38.13
-
