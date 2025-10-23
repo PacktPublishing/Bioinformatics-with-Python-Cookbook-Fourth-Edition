@@ -1,0 +1,15 @@
+name: ch13-genome-editing
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.12
+  - biopython
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
+  - notebook
+  - seaborn
