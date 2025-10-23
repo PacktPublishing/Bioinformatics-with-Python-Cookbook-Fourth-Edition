@@ -14,4 +14,5 @@ dependencies:
   - cyvcf2=0.31.1
   - notebook
   - bioblend=1.5.0
+  - sra-tools>=3.0 
 
