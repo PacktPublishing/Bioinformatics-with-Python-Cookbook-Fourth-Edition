@@ -4,17 +4,19 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - python=3.12
-  - biopython=1.84
-  - jupyterlab=4.4.0 
+  - python=3.11
+  - biopython
+  - jupyterlab
   - matplotlib
   - numpy
   - pandas
+  - seaborn
   - scipy
-  - cyvcf2
   - notebook
-  - bioblend>=1.5.0
-  - sra-tools>=3.0
+  - dask
+  - dask-ml
+  - scikit-learn
+  - pyarrow
   - pip
   - pip:
     - sgkit[plink]
