@@ -7,14 +7,14 @@ Designed to be run from the command line using pyflyte.
 
 Usage:
     # First, generate sample files 
-    python Ch15_5_flyte.py
+    python Ch16_1_flyte.py
     # Run locally
-    pyflyte run Ch15_5_flyte.py genomics_pipeline --fastq_file sample.fastq --reference_genome reference.fa --sample_name "my_sample"
+    pyflyte run Ch16_1_flyte.py genomics_pipeline --fastq_file sample.fastq --reference_genome reference.fa --sample_name "my_sample"
     
     # Run with Flyte sandbox
     flytectl demo start
-    pyflyte --config ~/.flyte/config-sandbox.yaml register Ch15_5_flyte.py
-    pyflyte --config ~/.flyte/config-sandbox.yaml run --remote Ch15_5_flyte.py genomics_pipeline --fastq_file sample.fastq --reference_genome reference.fa
+    pyflyte --config ~/.flyte/config-sandbox.yaml register Ch16_1_flyte.py
+    pyflyte --config ~/.flyte/config-sandbox.yaml run --remote Ch16_1_flyte.py genomics_pipeline --fastq_file sample.fastq --reference_genome reference.fa
     
 Requirements:
     pip install "flytekit[all]" 
