@@ -1,4 +1,4 @@
-name: ch16-machine-learning
+name: ch17-machine-learning
 channels:
   - conda-forge
   - bioconda
