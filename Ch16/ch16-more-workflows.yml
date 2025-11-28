@@ -1,4 +1,4 @@
-name: ch15-workflows
+name: ch16-more-workflows
 channels:
   - conda-forge
   - bioconda
