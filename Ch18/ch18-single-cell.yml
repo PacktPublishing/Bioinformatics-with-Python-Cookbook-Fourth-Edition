@@ -1,4 +1,4 @@
-name: ch17-single-cell
+name: ch18-single-cell
 channels:
   - conda-forge
   - bioconda
