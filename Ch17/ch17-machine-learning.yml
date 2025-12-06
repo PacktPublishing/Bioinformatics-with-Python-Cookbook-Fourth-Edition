@@ -13,9 +13,9 @@ dependencies:
   - scipy=1.14.1
   - pysam>=0.23.3  # Use >= instead of = for flexibility
   - notebook
-  - pytorch>=2.0
+  - pytorch=2.0.1
   - seaborn=0.13.2
-  - transformers=4.56.2
+  - transformers=4.30.2
   - plotly=6.3.1
   - tqdm=4.67.1
   - cyvcf2  # Now this should work
